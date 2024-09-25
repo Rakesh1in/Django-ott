@@ -1,0 +1,102 @@
+<!--importing fixed html files-->
+{% extends 'extends.html' %}
+
+    
+    <!-- this block replace in extends.html exact their block area-->
+    {% block content %}
+
+    <!-- div 'row justify-...' : content alginment starts with center -->
+    <div class='row justify-content-center'> 
+     
+        <!--if start -->
+        {% if post %}
+
+                <!--fetching data loop start -->
+                {% for i in post %}
+                <div class="card float-start p-1 ms-3 mb-3" style="width: 16rem;">
+                  <img src="{{i.movie_poster.url}}" class="card-img-top" alt="image">
+                  <div class="card-body">
+                    <h5 class="card-title">{{i.movie_name}}</h5>
+                    <p class="card-text">{{i.movie_release_date}}</p>
+                  </div>
+                  <a class="btn btn-secondary btn-sm text-center" href="{% url 'view_movie' i.id %}"> View Details
+                  </a>
+                </div>
+                {% endfor %}
+                <!--fetching data loop end -->
+     
+        <!--if here is no records -->
+        {% else %}
+            <p class="text-center">No records found</p>
+
+
+        {% endif %}
+        <!--if end -->
+
+        <div class="clearfix"><br></div>
+
+
+    <!-- Pagination start -->
+    <nav aria-label="Page navigation example">
+
+        {% if post.has_other_pages %}
+            <ul class="pagination pagination-sm justify-content-center">
+
+
+                <!-- Previous page started here -->
+                {% if post.has_previous %}
+                <li class="page-item">
+                    <a href="?page={{ post.previous_page_number}}" class="page-link">Previous</a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Previous</span>
+                </li>
+                {% endif %}
+                <!-- Previous page Ends here -->
+
+
+                <!-- Number of pages start here -->
+                <!-- all page numbers fetching -->
+                {% for i in post.paginator.page_range %}
+                    {% if post.number  == i %}
+                        <li class="page-item active">
+                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                        </li>
+                        {% else %}
+                            <li class="page-item">
+                                <a href="?page={{ i }}" class="page-link">{{i}}</a>
+                            </li>
+
+                    {% endif %}
+                {% endfor %}
+                <!-- end -->
+                <!-- Number of pages Ends here -->
+
+
+                <!-- Next page started here -->
+                {% if post.has_next %}
+                <li class="page-item">
+                    <a href="?page={{ post.next_page_number}}" class="page-link"> Next </a>
+                </li>
+                {% else %}
+                <li class="page-item disabled">
+                    <span class="page-link">Next</span>
+                </li>
+                {% endif %}
+                <!-- Next page Ends here -->
+
+
+            </ul>
+        {% endif %}
+
+
+    </nav>
+    <!-- Pagination end -->
+
+    <div class="clearfix"></div>
+    </div>
+    <!-- div row.. end-->
+    {% endblock %}
+    <!-- replaced content in extends.html block end -->
+

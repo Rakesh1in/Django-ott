@@ -1,0 +1,148 @@
+
+<!-- custom static files (css,js,pdf) -->
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- title-->
+    <title>{% block title %} OTT {% endblock title %}</title>
+
+    <!-- bootstrap css cdn import -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- bootstrap js cdn import -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- bootstrap icon css cdn import -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- custom stylesheet -->
+    <link rel="stylesheet" type="text/css" href="">
+
+
+</head>
+<body class="p-0 m-0 border-0">
+
+    <!-- navbar start -->
+    <nav class="navbar navbar-default bg-dark ">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white" href="{% url 'home' %}">
+            <h2>
+                <i class="bi bi-film"></i> 
+                OTT
+            </h2>
+        </a>
+
+
+        <!-- authentication details start --->
+        <div class="text-capitalize">
+
+        {% block login %}
+            {% if user.is_authenticated %}
+
+            <span class="navbar-text text-white">
+                <i class="bi bi-person-circle"></i> {{user.username}}
+            </span> 
+
+            &nbsp; 
+
+            <a href="javascript: {document.getElementById('id_logout').submit()}" class="btn btn btn-sm navbar-btn btn-danger"> Logout
+            <i class="bi bi-power"> </i>
+            </a>
+
+            <form method="POST" id="id_logout" action="{% url 'go_logout' %}">
+                {% csrf_token %}
+
+            </form>
+
+            {% else%}
+
+            <a href="{%url 'go_login'%}" class="text-white btn btn-sm navbar-btn btn-success"> Login
+                <i class="bi bi-box-arrow-in-right"></i>
+            </a>
+
+            &nbsp; 
+
+            <a href="{%url 'go_register'%}" class="text-white btn btn-sm navbar-btn btn-primary"> Register 
+                <i class="bi bi-list"></i>
+            </a>
+
+            {% endif %}
+        {% endblock login %}
+
+        </div>
+        <!-- authentication details end --->
+
+
+
+      </div>
+    </nav>
+    <!-- navbar end -->
+
+
+    <div class="clearfix"></div>
+
+
+    <!-- navbar start -->
+    <nav class="navbar bg-body-secondary">
+        <div class="container-fluid">
+
+            <!-- side headding start-->
+            <h5 class="mt-2">
+                {% block template_name %}
+                    <a href="{% url 'home' %}" class="text-dark text-decoration-none">
+                        <i class="bi bi-house-fill"></i>
+                    </a>
+
+                    {% if template%}
+                    <small class="text-secondary"> | {{template}} </small>
+                    {% endif %}
+                {% endblock template_name %}
+            </h5>
+            <!-- side headding end-->
+
+
+            <!-- search start -->
+            {% block search %}
+
+                <form class="d-flex" action="{% url 'search_movie' %}" role="search" method="GET">
+                  <input class="form-control me-2" name="search" type="text" placeholder=" Search" aria-label="Search">
+                  <button class="btn btn-dark" type="submit">Search</button>
+                </form>
+            {% endblock search %}
+            <!-- search end -->
+
+
+        </div>
+    </nav>
+    <!-- navbar end -->
+
+
+    <div class="clearfix"><br></div>
+    
+
+
+    <!-- .container-fluid fullbody contaianer!-->
+    <div class="container-fluid">
+
+
+        <!-- main content start -->
+        {% block content %}
+
+        <!-- where you extend this page to there .html page! 
+             then there complete code will have attached.
+             then you shold  write in there block content for additional particular data!
+             this block code will be replace with there code. --> 
+
+        {% endblock content %}
+        <!-- main content end -->
+
+    </div>    
+</body>
+</html>
+
+

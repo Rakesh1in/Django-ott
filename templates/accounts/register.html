@@ -1,0 +1,37 @@
+{% extends 'extends.html' %}
+
+{% block search %}
+{% endblock search %}
+
+{% block content %}
+
+
+	<div class='row justify-content-center'>
+		<div class="card col-md-5 p-3">
+
+		<form method="POST" action="{% url 'go_register' %}">
+			{% csrf_token %}
+		  <div class="mb-3">
+		    <label for="Username" class="form-label">Username</label>
+		    <input type="text" class="form-control" id="username" name="reg_username" required>
+		  </div>
+		  <div class="mb-3">
+		    <label for="email" class="form-label">Email</label>
+		    <input type="email" class="form-control" id="email" name="reg_email" required>
+		  </div>
+		   <div class="mb-3">
+		    <label for="password" class="form-label">Password</label>
+		    <input type="password" class="form-control" id="password" name="reg_password" required>
+		  </div>
+		  <div class="mb-3">
+		    <label for="confirm_password" class="form-label">Confirm</label>
+		    <input type="password" class="form-control" id="confirm_password" name="reg_confirm_password" required>
+		  </div>
+		  <button type="submit" class="btn btn-primary">Register</button>
+		</form>
+
+	</div>
+</div>
+
+
+{% endblock %}

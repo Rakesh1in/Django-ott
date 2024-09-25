@@ -1,0 +1,40 @@
+{% extends 'extends.html' %} <!--import base.html files-->
+
+ 
+    <!-- this block replace in extends.html exact their block area-->
+    {% block content %}
+
+    <div class='row'> 
+     
+        <!--if start -->
+        {% if post %}
+
+                <!--fetching data loop start -->
+                {% for i in post %}
+                <div class="card float-start p-1 ms-3 mb-3" style="width: 16rem;">
+                  <img src="{{i.movie_poster.url}}" class="card-img-top" alt="image">
+                  <div class="card-body">
+                    <h5 class="card-title">{{i.movie_name}}</h5>
+                    <p class="card-text">{{i.movie_release_date}}</p>
+                  </div>
+                  <a class="btn btn-secondary btn-sm text-center" href="{% url 'view_movie' i.id %}"> View Details
+                  </a>
+                </div>
+                {% endfor %}
+                <!--fetching data loop end -->
+
+     
+    <!--if here is no records -->
+    {% else %}
+        <p class="text-center">No records found</p>
+
+
+    {% endif %}
+    <!--if end -->
+    <div class="clearfix"><br></div>
+
+    </div>
+    <!-- div row.. end-->
+    {% endblock %}
+    <!-- replaced content in extends.html block end -->
+

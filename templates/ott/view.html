@@ -1,0 +1,188 @@
+{% extends 'extends.html' %} <!--import base.html files-->
+
+
+{% block content %}
+    <!--row justify divsion start-->
+    <div class='row justify-content-center text-capitalize'>
+
+    <!--if here is records -->
+    {% if post %} 
+
+
+
+        <!-- col start-->
+        <div class="col-md-5">
+
+            <!--row division start-->
+            <div class="row g-0 h-100 border p-1 rounded">
+
+                <div class="card bg-dark text-white">
+                    <img class="card-img opacity-75" src="{{post.movie_poster.url}}" alt="Card image">
+
+                    <!-- card-body start-->
+                    <div class="card-body card-img-overlay bg-dark bg-opacity-75">
+
+                         <!-- table start -->   
+                         <table class=" table-sm table-borderless" >
+                            <tr>
+                                <td><small><i>Name</i></small></td> <td>&nbsp;</td>
+                                <td>
+                                   <b>{{post.movie_name}}</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><small><i>Released</i></small></td> <td>&nbsp;</td>
+                                <td>
+                                    <small><b>{{post.movie_release_date}}</b></small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><small><i>Category</i></small></td> <td>&nbsp;</td>
+                                <td><b>{{post.movie_category}}</b></td>
+                            </tr>
+                            <tr>
+                                <td><small><i>Language</i></small></td> <td>&nbsp;</td>
+                                <td><b>{{post.movie_language}}</b></td>
+                            </tr>
+                            <tr>
+                                <td><small><i>Cast</i></small></td> <td>&nbsp;</td>
+                                <td><b>{{post.movie_actors}}</b></td>
+                            </tr>
+                            <tr>
+                                <td><small><i>Director</i></small></td> <td>&nbsp;</td>
+                                <td><small><b>{{post.movie_director}}</b></small></td>
+                            </tr>
+                            <tr>
+                                <td><small><i>Production</i></small></td> <td>&nbsp;</td>
+                                <td><small><b> DLS Gopal </b></small></td>
+                            </tr>
+                            <tr>
+                                <td><small><i>IMDB</i></small></td> <td>&nbsp;</td>
+                                <td>
+                                    <small><b>{{post.movie_imbd_rating  }} / 10 </b></small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><small><i>Trailer</i></small></td> <td>&nbsp;</td>
+                                <td>
+                                    <small>
+                                        <a href="{{post.movie_trailer_link}}">
+                                            <b>Connect</b>
+                                        </a>
+                                    </small>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" class="align-top">
+                                    <small><i>Decscription</i></small></td> 
+                                <td>
+                                    <small>
+                                        {{post.movie_description}}
+                                    </small>
+                                </td>
+                            </tr>
+
+                              
+                        </table>
+                        <!--table end-->
+
+                    </div>
+                    <!--card-body  end-->
+                    <div class="clearfix"></div>
+
+                </div>
+                <!-- card end -->
+
+            </div>
+            <!-- row end -->
+
+        </div>
+        <!-- col end -->
+
+
+        <!-- col start-->
+        <div class="col-md-7">
+
+            <!--row division start-->
+            <div class="row g-0 h-100 border p-1 rounded">
+
+                <!-- card-img div for overlay start -->
+                <div class="card embed-responsive embed-responsive-16by9 bg-black">
+                    <video   
+                        class = "card-img embed-responsive-item w-100 h-100 z-3" 
+                        src = "{{'../media/video.mkv'}}" 
+                        poster = ""
+                        controls
+                        >
+                    </video>
+                
+
+                    <div class="card-body card-img-overlay ">
+
+                        <h4 class="text-white">{{post.movie_name}} | {{post.movie_actors}}</h4>
+
+                            <!--small><b><i>Whath Movie : </i></b></small-->
+                            <!--iframe class="embed-responsive-item w-100 h-100"
+                                    src="{{post.movie_stream_link}}">
+                            </iframe-->
+
+                        <div class="clearfix"></div>
+
+                    </div>
+                    <!-- card-body end -->
+
+                </div>
+                <!-- card-img div for overlay end-->
+
+            </div>
+            <!-- row end-->
+
+        </div>
+        <!-- col end -->
+
+
+        <div class="clearfix"><br></div>
+         
+
+        <div class="col-md-12">
+
+            <div class="row g-0">
+
+            {% if user.is_authenticated%}
+
+                <!--update and delete options-->
+                <div class=" card-body text-center">
+                            <a  class='btn btn-primary'
+                                href="{% url 'update_movie' post.id %}">
+                            Update
+                            </a>
+                            &nbsp; &nbsp;
+                            <a  class='btn btn-danger' 
+                                onclick="return confirm('Are you sure you want to delete this?')"
+                                href="{% url 'delete_movie' post.id %}">
+                            Delete
+                            </a>
+                {% endif %}                            
+                        
+                </div>
+                <!-- card-body end-->
+
+            </div>
+            <!-- row end-->
+
+        </div>
+        <!-- col end-->
+
+        <div class="clearfix"><br></div>
+
+     
+
+        <!--if here is no records -->
+        {% else %} 
+            <p class="text-center">No records found</p>
+        {% endif %}
+
+
+    </div>
+    <!--row justify divsion end-->
+{% endblock content %}
